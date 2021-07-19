@@ -9,6 +9,6 @@ export default class ReadyEvent extends BaseEvent {
 	}
 
 	async listener() {
-		console.log(`Logged in as ${this.client.user?.tag}`);
+		this.client.logger.success("client", `Logged in as ${this.client.user?.tag}`);
 	}
 };

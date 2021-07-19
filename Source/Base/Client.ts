@@ -5,6 +5,7 @@ import BaseEvent from "./BaseEvent";
 import CommandManager from "./CommandManager";
 import Util from "../Packages/Util";
 import { AsciiTable } from "../Packages/AsciiTable";
+import Logger from "../Packages/Logger";
 
 interface StartParams {
 	prefix: string[];
@@ -16,6 +17,7 @@ export class LensClient extends Client {
 	public prefixes: Array<{ type: "ping" | "string", string: string }> = [];
 	public commands = new CommandManager();
 	public util = new Util();
+	public logger = new Logger();
 
 	constructor() {
 		super({
@@ -47,7 +49,7 @@ export class LensClient extends Client {
 			table.addRow(pull.name, "👂");
 		}
 
-		console.log(table.toString());
+		this.logger.success("client/events", "\n" + table.toString());
 	}
 
 	private async _loadCommands(commandDir: string) {
@@ -75,6 +77,6 @@ export class LensClient extends Client {
 			}
 		}
 
-		console.log(table.toString());
+		this.logger.success("client/commands", "\n" + table.toString());
 	}
 }
