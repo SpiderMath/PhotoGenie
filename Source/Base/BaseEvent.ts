@@ -1,17 +1,13 @@
 import { ClientEvents } from "discord.js";
 import { LensClient } from "./Client";
 
-interface EventConfig {
-	name: keyof ClientEvents;
-};
-
 export default abstract class BaseEvent {
 	public client: LensClient;
 	public name: keyof ClientEvents;
 
-	constructor(client: LensClient, configuration: EventConfig) {
+	constructor(client: LensClient, name: keyof ClientEvents) {
 		this.client = client;
-		this.name = configuration.name;
+		this.name = name;
 
 		Object.defineProperty(this, "client", {
 			configurable: true,

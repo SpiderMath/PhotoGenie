@@ -5,7 +5,7 @@ import { LensClient } from "./Base/Client";
 
 new LensClient()
 	.start({
-		prefix: [""],
+		prefix: [">_<"],
 		commandDir: join(__dirname, "./Commands"),
 		eventDir: join(__dirname, "./Events"),
 	});

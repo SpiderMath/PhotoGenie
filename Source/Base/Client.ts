@@ -25,6 +25,7 @@ export class LensClient extends Client {
 			ws: {
 				properties: { $browser: "Discord Android" },
 			},
+			partials: ["MESSAGE"],
 		});
 	}
 
