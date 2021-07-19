@@ -2,6 +2,9 @@ import { stripIndents } from "common-tags";
 import { Message } from "discord.js";
 import BaseEvent from "../Base/BaseEvent";
 import { LensClient } from "../Base/Client";
+import { Collection } from "discord.js";
+
+const cooldowns: Collection<`${string}-${bigint}`, number> = new Collection();
 
 export default class MessageEvent extends BaseEvent {
 	constructor(client: LensClient) {
@@ -30,6 +33,15 @@ export default class MessageEvent extends BaseEvent {
 
 		const command = this.client.commands.get(commandName);
 		if(!command) return;
+
+		const timestamp = cooldowns.get(`${command.name}-${message.author.id}`);
+		const now = Date.now();
+
+		if(timestamp && (timestamp - now) < command.cooldown) return message.channel.send(`Please wait for ${((timestamp - now) / 1000).toFixed(2)} seconds before trying this command again.`);
+
+		cooldowns.set(`${command.name}-${message.author.id}`, now);
+
+		setTimeout(() => cooldowns.delete(`${command.name}-${message.author.id}`));
 
 		try {
 			await command.handler(message, args);
