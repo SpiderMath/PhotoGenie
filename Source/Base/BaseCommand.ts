@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message, PermissionResolvable } from "discord.js";
 import { LensClient } from "./Client";
 
 interface CommandConfig {
@@ -6,6 +6,8 @@ interface CommandConfig {
 	aliases?: string[];
 	cooldown?: number;
 	description: string;
+	clientPerms?: PermissionResolvable[];
+	userPerms?: PermissionResolvable[];
 };
 
 export default abstract class BaseCommand {
@@ -15,6 +17,8 @@ export default abstract class BaseCommand {
 	public aliases: string[] = [];
 	public description = "";
 	public cooldown = 3;
+	public clientPerms: PermissionResolvable[] = [];
+	public userPerms: PermissionResolvable[] = [];
 
 	constructor(client: LensClient, configuration: CommandConfig) {
 		this.client = client;
@@ -26,6 +30,8 @@ export default abstract class BaseCommand {
 		});
 
 		Object.assign(this, configuration);
+
+		this.clientPerms.push("SEND_MESSAGES");
 	}
 
 	// eslint-disable-next-line no-unused-vars
