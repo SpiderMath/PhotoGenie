@@ -1,4 +1,4 @@
-import { ColorResolvable, Message, MessageEmbed, User } from "discord.js";
+import { ColorResolvable, Message, MessageEmbed, ReplyMessageOptions, User } from "discord.js";
 import { readFile } from "fs/promises";
 
 export default class Util {
@@ -19,5 +19,20 @@ export default class Util {
 		const jsonData = await readFile(path);
 
 		return JSON.parse(jsonData.toString());
+	}
+
+	public async reply(message: Message, content: string | MessageEmbed | MessageEmbed[], mention: boolean = false, isEmbeds: boolean = false) {
+		const obj: ReplyMessageOptions = {
+			allowedMentions: {
+				repliedUser: mention,
+			},
+		};
+
+		// @ts-ignore
+		if(isEmbeds) obj.embeds = Array.isArray(content) ? content : [content];
+		// @ts-ignore
+		else obj.content = content;
+
+		return await message.reply(obj);
 	}
 };
