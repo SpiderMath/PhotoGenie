@@ -8,6 +8,8 @@ interface CommandConfig {
 	description: string;
 	clientPerms?: PermissionResolvable[];
 	userPerms?: PermissionResolvable[];
+	hidden?: boolean;
+	usage?: string;
 };
 
 export default abstract class BaseCommand {
@@ -19,6 +21,8 @@ export default abstract class BaseCommand {
 	public cooldown = 3;
 	public clientPerms: PermissionResolvable[] = [];
 	public userPerms: PermissionResolvable[] = [];
+	public hidden: boolean = false;
+	public usage: string = "";
 
 	constructor(client: LensClient, configuration: CommandConfig) {
 		this.client = client;

@@ -15,4 +15,12 @@ export default class CommandManager {
 		// @ts-ignore
 		return this.cache.get(name.toLowerCase()) || this.cache.get(this.aliasCache.get(name.toLowerCase()));
 	}
+
+	public getCategories() {
+		return [...new Set(this.cache.map((cmd) => cmd.category))];
+	}
+
+	public getCommandsByCategory(category: string) {
+		return this.cache.filter((cmd) => cmd.category === category).map((data) => data);
+	}
 };
