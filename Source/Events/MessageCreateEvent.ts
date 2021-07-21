@@ -52,11 +52,11 @@ export default class MessageEvent extends BaseEvent {
 		const timestamp = cooldowns.get(`${command.name}-${message.author.id}`);
 		const now = Date.now();
 
-		if(timestamp && (timestamp - now) < (command.cooldown * 1000)) return message.channel.send(`Please wait for ${((timestamp - now) / 1000).toFixed(2)} seconds before trying this command again.`);
+		if(timestamp && (timestamp - now) < (command.cooldown * 1000)) return message.channel.send(`Please wait for **${((now - timestamp) / 1000).toFixed(2)}** seconds before trying this command again.`);
 
 		cooldowns.set(`${command.name}-${message.author.id}`, now);
 
-		setTimeout(() => cooldowns.delete(`${command.name}-${message.author.id}`));
+		setTimeout(() => cooldowns.delete(`${command.name}-${message.author.id}`), command.cooldown * 1000);
 
 		try {
 			await command.handler(message, args);
