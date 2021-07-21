@@ -18,6 +18,11 @@ export class LensClient extends Client {
 	public commands = new CommandManager();
 	public util = new Util();
 	public logger = new Logger();
+	public emotes = {
+		success: "<a:checkmark:840147155112165406>",
+		loading: "<a:loading:840147214193917963>",
+		error: "<a:error:840147176360378388>",
+	};
 
 	constructor() {
 		super({

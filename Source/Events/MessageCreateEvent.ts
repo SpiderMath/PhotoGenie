@@ -38,21 +38,21 @@ export default class MessageEvent extends BaseEvent {
 		const clientChannelPerms = (message.channel as TextChannel).permissionsFor(this.client.user);
 		for(const perm of command.clientPerms) {
 			if(!clientChannelPerms?.has(perm)) {
-				return message.channel.send(`This command cannot be executed because of lacking bot permissions! I need ${perm} permission to execute this command!`);
+				return message.channel.send(`${this.client.emotes.error} This command cannot be executed because of lacking bot permissions! I need ${perm} permission to execute this command!`);
 			}
 		}
 
 		const userChannelPerms = (message.channel as TextChannel).permissionsFor(message.author);
 		for(const perm of command.userPerms) {
 			if(!userChannelPerms?.has(perm)) {
-				return message.channel.send(`This command cannot be executed because of lacking user permissions! You need ${perm} permission to use this command!`);
+				return message.channel.send(`${this.client.emotes.error} This command cannot be executed because of lacking user permissions! You need ${perm} permission to use this command!`);
 			}
 		}
 
 		const timestamp = cooldowns.get(`${command.name}-${message.author.id}`);
 		const now = Date.now();
 
-		if(timestamp && (timestamp - now) < (command.cooldown * 1000)) return message.channel.send(`Please wait for **${((now - timestamp) / 1000).toFixed(2)}** seconds before trying this command again.`);
+		if(timestamp && (timestamp - now) < (command.cooldown * 1000)) return message.channel.send(`${this.client.emotes.error} Please wait for **${((now - timestamp) / 1000).toFixed(2)}** seconds before trying this command again.`);
 
 		cooldowns.set(`${command.name}-${message.author.id}`, now);
 
@@ -67,6 +67,7 @@ export default class MessageEvent extends BaseEvent {
 				Message: ${err.message}
 				Stack: ${err.stack}
 			`);
+			return message.channel.send(`${this.client.emotes.error} Something went wrong while executing your command. Please try again later. Sorry for the inconvience!`);
 		}
 	}
 }
