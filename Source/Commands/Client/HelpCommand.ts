@@ -12,6 +12,7 @@ export default class HelpCommand extends BaseCommand {
 				"halp",
 			],
 			cooldown: 5,
+			usage: "[command name]",
 		});
 	}
 
