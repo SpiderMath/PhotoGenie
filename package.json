@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "npx ts-node-dev ./Source/Bot.ts"
+		"dev": "npx ts-node-dev ./Source/Bot.ts",
+		"lint": "npx eslint . --ext .ts"
 	},
 	"author": "SpiderBro",
 	"license": "ISC",
