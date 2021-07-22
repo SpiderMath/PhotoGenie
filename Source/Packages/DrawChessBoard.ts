@@ -34,7 +34,6 @@ export default class ChessImageGenerator {
 	private light: string = defaultLight;
 	private dark: string = defaultDark;
 	private style: string = defaultStyle;
-	private flipped: boolean = false;
 	private chess = new Chess();
 	private ready: boolean = false;
 
@@ -43,7 +42,6 @@ export default class ChessImageGenerator {
 		light?: string;
 		dark?: string;
 		style?: string;
-		flipped?: boolean;
 	}) {
 		Object.assign(
 			this,
