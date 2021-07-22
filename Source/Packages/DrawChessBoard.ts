@@ -1,5 +1,5 @@
 import { join } from "path";
-import { Chess } from "chess.js";
+import { ChessInstance } from "chess.js";
 import { createCanvas, loadImage } from "canvas";
 import { writeFileSync } from "fs";
 
@@ -34,10 +34,9 @@ export default class ChessImageGenerator {
 	private light: string = defaultLight;
 	private dark: string = defaultDark;
 	private style: string = defaultStyle;
-	private chess = new Chess();
-	private ready: boolean = false;
+	private chess: ChessInstance;
 
-	constructor(options?: {
+	constructor(instance: ChessInstance, options?: {
 		size?: number;
 		light?: string;
 		dark?: string;
@@ -47,18 +46,11 @@ export default class ChessImageGenerator {
 			this,
 			options,
 		);
-	}
 
-	public loadFEN(fen: string) {
-		if(!this.chess.load(fen)) throw new Error("FEN could not be read successfully.");
-
-		this.ready = true;
-		return this;
+		this.chess = instance;
 	}
 
 	public async generateBuffer() {
-		if(!this.ready) throw new Error("The position hasn't been loaded yet!");
-
 		// The canvas has to be a square
 		const canvas = createCanvas(this.size, this.size);
 		const ctx = canvas.getContext("2d");
@@ -92,9 +84,7 @@ export default class ChessImageGenerator {
 					// @ts-ignore
 					const image = `../../Assets/Images/Chess/${this.style}/${filePaths[`${piece.color}${piece.type}`]}.png`;
 					const imageFile = await loadImage(join(__dirname, image));
-					const data = createCanvas(imageFile.width, imageFile.height);
-					const dataCtx = data.getContext("2d");
-					dataCtx.drawImage(imageFile, 0, 0);
+
 					// @ts-ignore
 					writeFileSync(`${filePaths[`${piece.color}${piece.type}`]}.png`, data.toBuffer("image/png"));
 
