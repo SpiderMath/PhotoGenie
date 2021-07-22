@@ -62,7 +62,7 @@ export default class LichessProfile extends BaseCommand {
 	public async handler(message: Message, args: string[]) {
 		if(!args[0]) return message.channel.send(`${this.client.emotes.error} No username provided`);
 
-		const username = args[0];
+		const username = args[0].toLowerCase();
 
 		const response = (await axios.get(`https://lichess.org/api/user/${username}`));
 

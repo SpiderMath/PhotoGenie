@@ -14,6 +14,7 @@ export default class LoadFENCommand extends BaseCommand {
 	}
 
 	public async handler(message: Message, args: string[]) {
+		if(!args[0]) return message.channel.send(`${this.client.emotes.error} You didn't provide a FEN String!`);
 		const chess = new Chess();
 
 		if(!chess.validate_fen(args.join(" ")).valid) return message.channel.send(`${this.client.emotes.error} Invalid FEN expression provided! (Please note that, for loading FEN here, you need to load the FEN with the colour and move arguments as well)`);
