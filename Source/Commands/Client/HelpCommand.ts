@@ -18,7 +18,7 @@ export default class HelpCommand extends BaseCommand {
 
 	public async handler(message: Message, args: string[]) {
 		const commandName = args[0];
-		const categoryMap = await this.client.util.loadJSON(join(__dirname, "../../../Assets/JSON/CommandMap.json"));
+		const categoryMap = await this.client.util.loadJSON<any>(join(__dirname, "../../../Assets/JSON/CommandMap.json"));
 
 		if(!commandName) {
 			// Show all commands
