@@ -29,7 +29,7 @@ export default class MessageEvent extends BaseEvent {
 
 		if(prefix.length === 0) return;
 
-		const [commandName, ...args] = message.content.slice(prefix.length).split(/ +/g);
+		const [commandName, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
 
 		const command = this.client.commands.get(commandName);
 		if(!command) return;
