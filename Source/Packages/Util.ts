@@ -1,4 +1,3 @@
-import { ColorResolvable, Message, MessageEmbed, ReplyMessageOptions, User } from "discord.js";
 import { readFile } from "fs/promises";
 
 export default class Util {

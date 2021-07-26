@@ -4,7 +4,7 @@ on: [push]
 jobs:
   eslintRun:
     runs-on: ubuntu-latest
-    name: 'Run-Eslint'
+    name: 'Eslint'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
