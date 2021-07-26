@@ -22,7 +22,7 @@ export default class HelpCommand extends BaseCommand {
 
 		if(!commandName) {
 			// Show all commands
-			const helpEmbed = this.client.util.embed(message.author)
+			const helpEmbed = this.embed(message.author)
 				.setTitle("Help Menu")
 				// @ts-ignore
 				.setThumbnail(this.client.user?.displayAvatarURL({ dynamic: true }))
@@ -43,30 +43,35 @@ export default class HelpCommand extends BaseCommand {
 				helpEmbed.addField(categoryMap[category.toLowerCase()] || category, string, false);
 			}
 
-			return this.client.util.sendEmbeds(message, helpEmbed);
+			return message.channel.send({
+				embeds: [helpEmbed],
+			});
 		}
 
 		else {
 			// Show command information
 			const command = this.client.commands.get(commandName);
 
-			const commandHelpEmbed = this.client.util.embed(message.author)
+			const commandHelpEmbed = this.embed(message.author)
 				// @ts-ignore
 				.setThumbnail(this.client.user?.displayAvatarURL({ dynamic: true }))
 				.setFooter(`© ${this.client.user?.username} ${new Date().getUTCFullYear()}`)
 				.setTitle("Command Menu");
 
-			if(!command) return this.client.util.sendEmbeds(message, commandHelpEmbed.setColor("RED").setDescription("Command not found!"));
+			if(!command) return message.channel.send({ embeds: [commandHelpEmbed.setColor("RED").setDescription("Command not found!")] });
 
-			return this.client.util.sendEmbeds(message, commandHelpEmbed
-				.addField("❯ Name", command.name, true)
-				.addField("❯ Description", command.description, true)
-				.addField("❯ Aliases", command.aliases.length > 0 ? `\`${command.aliases.join("`, `")}\`` : "None", true)
-				.addField("❯ Cooldown", `${command.cooldown} seconds`, true)
-				.addField("❯ Category", categoryMap[command.category.toLowerCase()] || command.category, true)
-				.addField("❯ Usage", `{prefix}${command.name} ${command.usage}`, true)
-				.addField("❯ Hidden", command.hidden ? "Yes" : "No", true),
-			);
+			message.channel.send({
+				embeds: [
+					commandHelpEmbed
+						.addField("❯ Name", command.name, true)
+						.addField("❯ Description", command.description, true)
+						.addField("❯ Aliases", command.aliases.length > 0 ? `\`${command.aliases.join("`, `")}\`` : "None", true)
+						.addField("❯ Cooldown", `${command.cooldown} seconds`, true)
+						.addField("❯ Category", categoryMap[command.category.toLowerCase()] || command.category, true)
+						.addField("❯ Usage", `{prefix}${command.name} ${command.usage}`, true)
+						.addField("❯ Hidden", command.hidden ? "Yes" : "No", true),
+				],
+			});
 		}
 	}
 }

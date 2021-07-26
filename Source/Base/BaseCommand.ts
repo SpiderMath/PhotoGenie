@@ -1,4 +1,4 @@
-import { Message, PermissionResolvable } from "discord.js";
+import { Message, PermissionResolvable, MessageEmbed, User, ColorResolvable } from "discord.js";
 import { LensClient } from "./Client";
 
 interface CommandConfig {
@@ -40,4 +40,11 @@ export default abstract class BaseCommand {
 
 	// eslint-disable-next-line no-unused-vars
 	abstract handler(message: Message, args: String[]): Promise<any>;
+
+	public embed(user: User, colour?: ColorResolvable) {
+		return new MessageEmbed()
+			.setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
+			.setTimestamp()
+			.setColor(colour || "GREEN");
+	}
 };

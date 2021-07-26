@@ -13,14 +13,20 @@ export default class PingCommand extends BaseCommand {
 	}
 
 	public async handler(message: Message) {
-		const msg = await this.client.util.reply(message, this.client.util.embed(message.author, "YELLOW")
-			.setDescription("Pinging...."),
-		false, true);
+		const msg = await message.reply({
+			embeds: [
+				this.embed(message.author, "YELLOW")
+					.setDescription("Pinging...."),
+			],
+			allowedMentions: {
+				repliedUser: false,
+			},
+		});
 
 		return msg
 			.edit({
 				embeds: [
-					this.client.util.embed(message.author)
+					this.embed(message.author)
 						.setTitle("API Latency")
 						.setDescription(
 							stripIndents`
