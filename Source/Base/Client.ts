@@ -6,6 +6,7 @@ import CommandManager from "./CommandManager";
 import Util from "../Packages/Util";
 import { AsciiTable } from "../Packages/AsciiTable";
 import Logger from "../Packages/Logger";
+import Scrambler from "../Packages/Scrambler";
 
 interface StartParams {
 	prefix: string[];
@@ -23,6 +24,7 @@ export class LensClient extends Client {
 		loading: "<a:loading:840147214193917963>",
 		error: "<a:error:840147176360378388>",
 	};
+	public scrambler: Scrambler;
 
 	constructor() {
 		super({
@@ -32,12 +34,16 @@ export class LensClient extends Client {
 			},
 			partials: ["MESSAGE"],
 		});
+
+		this.scrambler = new Scrambler(this);
 	}
 
 	public async start(config: StartParams) {
 		config.prefix.forEach((pref) => this.prefixes.push({ type: "ping", string: pref }));
 		await this._loadEvents(config.eventDir);
 		await this._loadCommands(config.commandDir);
+		await this.scrambler.resolve()
+			.then(() => this.logger.success("client/scrambler", "Successfully loaded all the scramblers"));
 
 		this.login(process.env.TOKEN);
 	}
@@ -54,7 +60,6 @@ export class LensClient extends Client {
 			this.on(pull.name, async (...args: any[]) => await pull.listener(...args));
 			table.addRow(pull.name, "👂");
 		}
-
 		this.logger.success("client/events", "\n" + table.toString());
 	}
 
