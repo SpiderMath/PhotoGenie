@@ -17,7 +17,7 @@ interface StartParams {
 export class LensClient extends Client {
 	public prefixes: Array<{ type: "ping" | "string", string: string }> = [];
 	public commands = new CommandManager();
-	public util = new Util();
+	public util: Util;
 	public logger = new Logger();
 	public emotes = {
 		success: "<a:checkmark:840147155112165406>",
@@ -36,6 +36,7 @@ export class LensClient extends Client {
 		});
 
 		this.scrambler = new Scrambler(this);
+		this.util = new Util(this);
 	}
 
 	public async start(config: StartParams) {

@@ -45,7 +45,7 @@ export default class PllScrambler {
 	}
 
 	// @ts-ignore
-	public generateScramble() {
+	public generateScramble(): { alg: string, pll: string, auf: string } {
 		const pllName = this.getRandomElementFromArray(this.getPlls());
 		const auf = this.getRandomElementFromArray(this.getAvailableAufs());
 		const blockPos = (this.getRandomElementFromArray(this.getAvailableBlockPos()) as BlockPosition);
@@ -56,7 +56,11 @@ export default class PllScrambler {
 
 		const finalAlg = this.moveBlock("BL", blockPos, alg);
 
-		return finalAlg;
+		return {
+			alg: finalAlg,
+			pll: pllName,
+			auf: auf,
+		};
 	}
 
 	private getPlls() {
