@@ -76,12 +76,12 @@ export default class Util {
 					embeds: [
 						baseEmbed
 							.setColor("GREEN")
-							.setDescription(`You took ${stopTime - startTime}`),
+							.setDescription(`You took ${this.formatMiliseconds(stopTime - startTime)}`),
 					],
 					components: [buttonRow],
 				});
 
-				return stopTime - startTime;
+				return this.formatMiliseconds(stopTime - startTime);
 			}
 			catch {
 				buttonRow.spliceComponents(0, 1, timerButton.setLabel("Terminated").setEmoji("❌").setStyle("DANGER").setDisabled(true));
@@ -119,5 +119,12 @@ export default class Util {
 		const datButton = buttonRow.components[index];
 
 		buttonRow.spliceComponents(index, 1, datButton.setDisabled(true));
+	}
+
+	public formatMiliseconds(ms: number): string {
+		const seconds = Math.floor(ms / 1000);
+		const minutes = Math.floor(seconds / 60);
+
+		return `${minutes}:${seconds % 60}.${ms % 1000}`;
 	}
 };
