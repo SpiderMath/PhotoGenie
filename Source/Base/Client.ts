@@ -6,7 +6,6 @@ import CommandManager from "./CommandManager";
 import Util from "../Packages/Util";
 import { AsciiTable } from "../Packages/AsciiTable";
 import Logger from "../Packages/Logger";
-import Scrambler from "../Packages/Scrambler";
 
 interface StartParams {
 	prefix: string[];
@@ -24,7 +23,6 @@ export class LensClient extends Client {
 		loading: "<a:loading:840147214193917963>",
 		error: "<a:error:840147176360378388>",
 	};
-	public scrambler: Scrambler;
 
 	constructor() {
 		super({
@@ -35,7 +33,6 @@ export class LensClient extends Client {
 			partials: ["MESSAGE"],
 		});
 
-		this.scrambler = new Scrambler(this);
 		this.util = new Util(this);
 	}
 
@@ -43,8 +40,6 @@ export class LensClient extends Client {
 		config.prefix.forEach((pref) => this.prefixes.push({ type: "ping", string: pref }));
 		await this._loadEvents(config.eventDir);
 		await this._loadCommands(config.commandDir);
-		await this.scrambler.resolve()
-			.then(() => this.logger.success("client/scrambler", "Successfully loaded all the scramblers"));
 
 		this.login(process.env.TOKEN);
 	}
