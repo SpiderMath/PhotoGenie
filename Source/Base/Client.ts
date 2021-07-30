@@ -51,7 +51,7 @@ export default class PhotoGenieClient extends Client {
 			}
 		}
 
-		this.logger.success("client/commands", table.toString());
+		this.logger.success("client/commands", "\n" + table.toString());
 	}
 
 	private async _loadEvents(eventDir: string) {
@@ -68,6 +68,6 @@ export default class PhotoGenieClient extends Client {
 			table.addRow(pull.name, "👂");
 		}
 
-		this.logger.success("client/events", table.toString());
+		this.logger.success("client/events", "\n" + table.toString());
 	}
 };
