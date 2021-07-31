@@ -10,10 +10,10 @@ export default class InteractionCreateEvent extends BaseEvent {
 
 	public async handler(interaction: Interaction) {
 		// Here I got some kind of interaction, which I need to determine in here.
-		if(interaction.isCommand()) return await this.handleCommand(interaction as CommandInteraction);
+		if(interaction.isCommand()) return await this._handleCommand(interaction as CommandInteraction);
 	}
 
-	private async handleCommand(interaction: CommandInteraction) {
+	private async _handleCommand(interaction: CommandInteraction) {
 		// Here I am gonna deal with the command interaction.
 
 		const commandName = interaction.commandName;
@@ -21,7 +21,7 @@ export default class InteractionCreateEvent extends BaseEvent {
 		const command = this.client.commands.get(commandName);
 
 		// Personal Preference to just defer it just in case.
-		interaction.defer();
+		await interaction.defer();
 
 		try {
 			command?.run(interaction);
@@ -35,7 +35,7 @@ export default class InteractionCreateEvent extends BaseEvent {
 				Error Stack: ${err.stack}
 			`);
 
-			interaction.reply(stripIndents`
+			interaction.editReply(stripIndents`
 				${this.client.emotes.error} Something went wrong while executing the command, please contact the owner for resolving the issue.
 				Error: ${err.message}
 			`);
