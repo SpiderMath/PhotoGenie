@@ -19,6 +19,7 @@ export default class InvertCommand extends BaseSlashCommand {
 					name: "type",
 					description: "The type of invertion you want to do",
 					type: "STRING",
+					required: false,
 					choices: [
 						{
 							name: "Lateral Invertion",
