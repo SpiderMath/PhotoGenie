@@ -21,7 +21,9 @@ export default class AchievementCommand extends BaseSlashCommand {
 	}
 
 	public async run(interaction: CommandInteraction) {
-		const text = interaction.options.getString("text", true);
+		let text = interaction.options.getString("text", true);
+
+		if(text.length > 25) text = text.slice(0, 24) + "...";
 
 		const base = await loadImage(join(__dirname, "../../../Assets/Images/Achievement.png"));
 		const canvas = createCanvas(base.width, base.height);
