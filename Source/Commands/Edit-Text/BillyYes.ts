@@ -23,6 +23,8 @@ export default class BillyYesCommand extends BaseSlashCommand {
 	public async run(interaction: CommandInteraction) {
 		const text = interaction.options.getString("text", true);
 
+		if(text.length > 25) return interaction.editReply("The text can only be 25 characters long.");
+
 		const base = await loadImage(join(__dirname, "../../../Assets/Images/BillyYes.jpg"));
 
 		const canvas = createCanvas(base.width, base.height);
