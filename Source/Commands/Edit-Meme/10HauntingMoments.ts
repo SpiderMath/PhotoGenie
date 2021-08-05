@@ -24,7 +24,7 @@ export default class TenHauntingMoments extends BaseSlashCommand {
 		const user = interaction.options.getUser("user") || interaction.user;
 
 		const avatar = await loadImage(user.displayAvatarURL({ format: "png", size: 512 }));
-		const base = await loadImage(join(__dirname, "../../../Assets/Images/10HauntingMoments.png"));
+		const base = await loadImage(join(__dirname, "../../../Assets/Images/10hauntingmoments.png"));
 
 		const canvas = createCanvas(base.width, base.height);
 		const ctx = canvas.getContext("2d");
