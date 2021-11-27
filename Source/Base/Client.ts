@@ -7,6 +7,7 @@ import CommandManager from "./CommandManager";
 
 export default class PhotoGenieClient extends Client {
 	public commands = new CommandManager();
+	public prefix = process.env.PREFIX || ".";
 
 	constructor() {
 		super({
