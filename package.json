@@ -3,24 +3,17 @@
 	"version": "3.0.0",
 	"description": "",
 	"scripts": {
-		"dev": "npx ts-node-dev ./Source/Bot.ts",
-		"lint": "npx eslint . --ext .ts",
-		"start": "ts-node ./Source/Bot.ts"
+		"dev": "npx nodemon ./Source/Bot.js",
+		"lint": "npx eslint . --fix",
+		"start": "node ./Source/Bot.js"
 	},
 	"author": "SpiderBro",
 	"license": "AGPL-3.0",
 	"devDependencies": {
-		"@types/common-tags": "^1.8.1",
-		"@types/node": "^16.3.3",
-		"@typescript-eslint/parser": "^4.28.3",
-		"eslint": "^7.30.0",
-		"ts-node": "^10.1.0",
-		"ts-node-dev": "^1.1.8",
-		"typescript": "^4.3.5"
+		"eslint": "^7.32.0",
+		"nodemon": "^2.0.15"
 	},
 	"dependencies": {
-		"canvas": "^2.8.0",
-		"common-tags": "^1.8.0",
 		"discord.js": "^13.3.1",
 		"dotenv": "^10.0.0"
 	}
