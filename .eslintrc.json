@@ -1,0 +1,45 @@
+{
+	"extends": "eslint:recommended",
+	"env": {
+		"node": true,
+		"es6": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2022
+	},
+	"rules": {
+		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+		"no-trailing-spaces": "error",
+		"quotes": ["error", "single"],
+		"indent": ["error", "tab"],
+		"spaced-comment": ["error", "always"],
+		"semi": [
+			"error",
+			"always"
+		],
+		"no-empty": [
+			"error",
+			{
+				"allowEmptyCatch": true
+			}
+		],
+		"no-invalid-regexp": "error",
+		"no-var": "error",
+		"max-nested-callbacks": [
+			"error",
+			{
+				"max": 3
+			}
+		],
+		"max-statements-per-line": [
+			"error",
+			{
+				"max": 2
+			}
+		],
+		"no-unused-vars": [
+			"error"
+		],
+		"yoda": "error"
+	}
+}
